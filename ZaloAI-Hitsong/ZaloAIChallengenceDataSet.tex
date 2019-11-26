@@ -1,0 +1,116 @@
+\documentclass[11pt]{beamer}
+\usetheme{Antibes}
+
+\title{FTech Training}
+\subtitle{Using Beamer}
+\author{Luc Nguyen}
+\institute{HUST}
+\date{\today}
+\usetheme{Boadilla}
+
+\begin{document}
+\begin{frame}
+\frametitle{\textbf{HIT SONG PREDICTION}}
+\framesubtitle{\textbf{Overview}}
+\begin{enumerate}
+	\item Description
+	\item Regulation
+	\item Dataset
+	\item Submission form
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{DESCRIPTION}
+\begin{itemize}
+	\pause\item Build a model to predict whether a given song will become a chart-topping hit.
+	\pause\item Hit song prediction is useful to musicians, labels, music vendors.
+	\pause\item Timeline : 
+	\begin{itemize}
+		\pause\item Oct 10, 2019 : Competition starts
+		\pause\item Nov 26, 2019 : Deadline for all submissions, including training code, testing code and models.
+		\pause\item Nov 27, 2019 : Private test set released.
+		\pause\item Nov 28, 2019 : Final solution submitted for private test set.
+		\pause\item Dec 09, 2019 : Challenge results announced
+		\pause\item Dec, 2019 : Awards Ceremony.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{REGULATION}
+\begin{itemize}
+	\pause\item Pre-trained model
+	\pause\item Encouraged to open source after the competition
+	\pause\item One account per participant
+	\pause\item No private sharing outside teams
+	\pause\item Term of using data : 
+	\pause \begin{itemize}
+		\item Only use data for non-commercial research and educational purpose.
+		\item Do not distribute the datasets.
+%		\item 
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{REGULATION}
+\begin{itemize}
+	\item Team and product : 
+	\begin{itemize}
+		\item Maximum 5 mems per team
+		\item Submits a maximum of 2 entries per day
+		\item Only choose 1 final submissions for judging
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{DATASET}
+\begin{itemize}
+	\pause\item Three parts of datasets : 
+	\begin{itemize}
+		\item Training data : 9078 datasets
+		\item Public test data : 1118 datasets.
+		\item Private test data.
+	\end{itemize}
+	\pause\item Time restriction : 6 hours on test servers.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DATASET}
+	\begin{itemize}
+		\item Specific detail :
+		\pause \begin{itemize}
+			\item Vietnamese song in the audio in .mp3 format
+			\item Its metadata : 
+			\begin{itemize}
+				\item ID
+				\item Title
+				\item Composer
+				\item Singer
+				\item Its Zing MP3 rank from 1 to 10 for 6-month period
+				\item Released date : 2017 and 2018
+			\end{itemize}
+		\end{itemize}
+		\pause\item Classification : 
+		\begin{itemize}
+			\item Classical music
+			\item Folk music
+			\item Pop music 
+			\item etc
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{SUBMISSION FORM}
+\begin{itemize}
+	\pause\item Submit a csv file including ID from the test file and its predicted rank from 1 to 10.
+	\pause\item Solution submit : submit training code, testing code and models.
+	\pause\item Final results submit : Submit final solution for private test set.
+\end{itemize}
+\end{frame}
+\end{document}

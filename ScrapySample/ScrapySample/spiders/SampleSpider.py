@@ -8,12 +8,13 @@ from scrapy_splash import SplashRequest
 class Q1Spider(scrapy.Spider):
     name = "q1"
     start_urls = [
-                # 'https://tiki.vn/nha-gia-kim-p378448.html',
-                'https://tiki.vn/5-centimet-tren-giay-p418676.html',
+                'https://tiki.vn/nha-gia-kim-p378448.html',
+                # 'https://tiki.vn/5-centimet-tren-giay-p418676.html',
                 # 'https://tiki.vn/tony-buoi-sang-tren-duong-bang-tai-ban-2017-p1005148.html',
                 ]
 
     def parse(self, response):
+        print('response is ', response.css('.special-price-item').extract_first())
         for price in response.css('.special-price-item').css('#span-price') :
             print('================== price is : ',re.sub("[^0-9]","",price.css('span ::text').extract_first()))
             
@@ -64,6 +65,7 @@ class Q3Spider(scrapy.Spider) :
             yield SplashRequest(sampleURL + str(i + 1) + '.html', self.parse, args = {"wait": 5})
         
     def parse(self, response) :
+        print('====================================================')
         lst = response.css('#offcanvas-container').css('.ma-box-content')
         for item in lst :
             title = item.css('.product-name').css('a ::text').extract_first()

@@ -1,0 +1,203 @@
+\documentclass[11pt]{beamer}
+\usetheme{Antibes}
+\usepackage[utf8]{vietnam}
+\title{FTech Training}
+\subtitle{Using Beamer}
+\author{Luc Nguyen}
+\institute{HUST}
+\date{\today}
+\usetheme{Boadilla}
+
+\begin{document}
+
+\begin{frame}
+\frametitle{\textbf{CONTENT-BASED RS}}
+\begin{itemize}
+\pause
+\item Idea  : 
+\begin{itemize}
+	\item Base on description, content of each item and profile of user's preferences to recommend other item to the user.
+	\item Item is represented as a vector $x = (x_1, x_2, ... x_n)$, each feature describes a properties of the item.
+	\item The level of the user's concern about an item is described as a function $y = f(x) $.
+\end{itemize}
+\pause
+\item Pros
+\begin{itemize}
+	\item CBRS does not need data about other users. This makes it easier to scale to a large number of users.
+	\item The model can record the specific interests of a user, and recommend items that very few users are interested in.
+
+\end{itemize}
+\pause
+\item Cons
+	\begin{itemize}
+	\item The model can only make recommendations based on existing interests of the user.
+	\item The model does not use the preferences of other users.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{How to encode data?}
+\pause
+\begin{itemize}
+\item One-hot encoding
+\item Word embeddings
+\item Term frequency - inverse document frequency (TF-IDF) encoding
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{TF - IDF representation : }}
+	\begin{itemize}
+	\pause\item TF - IDF is used to weigh a keyword in any documents and assign the importance to that keyword
+	\item The higher the TF-IDF score, the more important the term/keyword
+	\pause\item TF(term frequency) : 
+	%\item Source : 
+	\begin{itemize}
+		\item binary  : $tf = 0, 1 $
+		\item raw count  : $tf = f_{t, d} $
+		\item term frequency  : $tf = \dfrac{f_{t, d}}{\Sigma_{t'\in d}f_{t', d}} $
+		\item log normalization  : $tf = \log(1 + f_{t, d})$
+		\item double normalization $k$  : $tf = k + (1 - k) \dfrac{f_{t, d}}{\max_{t' \in d}f_{t',d}} $
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{TF - IDF representation : }}
+\begin{itemize}
+	\item IDF(Inverse document frequency)
+	\begin{itemize}
+		\pause\item Unary : $idf = 1$
+		\item Inverse document frequency : $idf = \log \dfrac{N}{n_t}$
+		\item Inverse document frequency smooth: $idf = \log\dfrac{N}{1+n_t}$
+		\item Inverse document frequency max: $idf = \log\left(\dfrac{\max_{t'\in d}n_{t'}}{1 + n_t}\right)$
+		\item Probabilistic inverse document frequency: $ idf = \log\dfrac{N-n_t}{n_t} $
+	\end{itemize}
+	\pause\item The product $tf * idf$ represents the TF-IDF score.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{TF - IDF representation : }} 
+%\vspace{1cm}
+\framesubtitle{\textbf{Loss function for Linear Regression}}
+	\begin{itemize}
+		\pause\item Linear regression : $ y_{mn} = x_mw_n + b_n $
+		\pause\item Loss function : 
+		$$ \mathbb{L} = \dfrac{1}{2}\sum_{m:r_{mn} = 1}\left(x_mw_n+b_n-y_{mn}\right)^2 + \dfrac{\lambda}{2}\left\|w_n\right\|_2^2  $$
+		\pause\item Take the average : 
+		$$ \mathbb{L} = \dfrac{1}{2s_n}\sum_{m:r_{mn} = 1}\left(x_mw_n+b_n-y_{mn}\right)^2 + \dfrac{\lambda}{2s_n}\left\|w_n\right\|_2^2  $$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{NEIGHBORHOOD-BASED COLLABORATIVE FILTERING}}
+\begin{itemize}
+\pause
+	\item Idea
+	\begin{itemize}
+		\item Make prediction about the interests of a user by collecting preferences from many users.
+		\item Each user ( or item) is represented as a vector $x = (x_1, x_2,..., x_n)$, each feature describes a level of user's concern to the item.
+		\item The level of a user's concern to a item can be predicted by calculating the vector similarity between the given user and other.
+	\end{itemize}
+	\pause\item Pros 
+	\begin{itemize}
+		\item Better RMSE (more exactly) than content-based RS
+		\item Use preferences of other users/items to make prediction.
+	\end{itemize}
+	\pause\item Cons
+	\begin{itemize}
+		\item Hard to scale a large number of users/items.
+%		\item 
+	\end{itemize}
+%\pause
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{NEIGHBORHOOD-BASED COLLABORATIVE FILTERING}}
+\framesubtitle{How to know two users are similar?}
+\begin{itemize}
+	\pause\item Cosine Similarty
+	\pause\item Person corelation
+	\pause\item Jaccard similarty : $ similarity = \dfrac{|A\cap B|}{|A\cup B|}$
+	\pause\item Mean Measure of Divergence
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{NEIGHBORHOOD-BASED COLLABORATIVE FILTERING}}
+\framesubtitle{Cosine Similarity}
+\begin{itemize}
+	\pause\item Cosine similarity is used to calculate the similarity between two vectors.
+	\pause\item Formula : 
+$$ \mbox{cosine\_similarity}(u_1, u_2) = \cos(u_1,u_2) = \dfrac{u_1^Tu_2}{\left\|u_1\right\|_2.\left\|u_2\right\|_2}  $$
+	\pause\item Predict rating of user u to item i : \\
+	$$ \hat{y}_{i,u} = \dfrac{\sum_{u_j\in N(u,j)} \bar{y}_{i,u_j}\mbox{sim}(u, u_j)}{\sum_{u_j\in N(u,j)}|\mbox{sim}(u, u_j)|} $$
+	\pause\item Loss function :
+	$$\mathbb{L} = \left\| y - \hat{y} \right\|^2_2 $$
+
+\end{itemize} 
+
+\end{frame}
+
+%\begin{frame}
+%\frametitle{\textbf{NEIGHBORHOOD-BASED COLLABORATIVE FILTERING}}
+%\framesubtitle{Loss function}
+%	$\mathbb{L} = \left\| y - \hat{y} \right\}\|^2_2 $
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{MATRIX FACTORIZATION COLLABORATIVE FILTERING}}
+\begin{itemize}
+
+	\pause\item Idea : 
+	\begin{itemize}
+%\pause
+		\item Approximating the user-item reaction matrix into the product of two lower dimensionality matrix $Y = XW$.
+		\item By evaluating the product of two matrix, we get a complete matrix of user-item reaction 
+%\pause
+	\end{itemize}
+	\pause\item Pros :
+	\begin{itemize}
+		\item Able to discover some new data, based on latent feature between two matrices.
+		\item Simple inference by evaluating the matrix product.
+		\item Save memory.
+	\end{itemize}
+	\pause\item Cons : 
+	\begin{itemize}
+		\item Take much time to train the model.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\textbf{MATRIX FACTORIZATION COLLABORATIVE FILTERING}}
+\framesubtitle{\textbf{How to train the model?}}
+\begin{itemize}
+	\pause\item Gradient descent
+	\pause\item Alternating least square
+	\pause\item Generalized low rank models
+	\pause\item Singular value decommposition (SVD)
+\end{itemize}	
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{MATRIX FACTORIZATION COLLABORATIVE FILTERING}}
+\framesubtitle{\textbf{Gradient descent to optimize the linear-regression loss function}}
+\begin{itemize}
+	\pause\item Loss function :
+	$$ \mathbb{L}(X,W) = \dfrac{1}{2s}\sum_{n=1}^{N}\sum_{m:r_{mn}=1}(y_{mn}-x_mw_n)^2+\dfrac{\lambda}{2}\left(\left\|X\right\|^2_F+\left\|W\right\|^2_F\right) $$
+	\pause\item Update $W$ : 
+	$$w_n = w_n - \eta\left(-\dfrac{1}{s}\hat{X}^T_n(\hat{y}^n-\hat{X}_nw_m)+ \lambda w_n\right) $$
+	\pause\item Update $X$ : 
+	$$x_m = x_m - \eta\left(-\dfrac{1}{s}(\hat{y}^m-x_m\hat{W}_m)\hat{W}^T_m + \lambda x_m\right) $$
+\end{itemize}
+\end{frame}
+
+
+\end{document}
