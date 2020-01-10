@@ -52,7 +52,6 @@
 	\pause\item TF - IDF is used to weigh a keyword in any documents and assign the importance to that keyword
 	\item The higher the TF-IDF score, the more important the term/keyword
 	\pause\item TF(term frequency) : 
-	%\item Source : 
 	\begin{itemize}
 		\item binary  : $tf = 0, 1 $
 		\item raw count  : $tf = f_{t, d} $
@@ -142,24 +141,13 @@ $$ \mbox{cosine\_similarity}(u_1, u_2) = \cos(u_1,u_2) = \dfrac{u_1^Tu_2}{\left\
 \end{itemize} 
 
 \end{frame}
-
-%\begin{frame}
-%\frametitle{\textbf{NEIGHBORHOOD-BASED COLLABORATIVE FILTERING}}
-%\framesubtitle{Loss function}
-%	$\mathbb{L} = \left\| y - \hat{y} \right\}\|^2_2 $
-%\end{frame}
-
-
 \begin{frame}
 \frametitle{\textbf{MATRIX FACTORIZATION COLLABORATIVE FILTERING}}
 \begin{itemize}
-
 	\pause\item Idea : 
 	\begin{itemize}
-%\pause
 		\item Approximating the user-item reaction matrix into the product of two lower dimensionality matrix $Y = XW$.
 		\item By evaluating the product of two matrix, we get a complete matrix of user-item reaction 
-%\pause
 	\end{itemize}
 	\pause\item Pros :
 	\begin{itemize}
@@ -173,8 +161,6 @@ $$ \mbox{cosine\_similarity}(u_1, u_2) = \cos(u_1,u_2) = \dfrac{u_1^Tu_2}{\left\
 	\end{itemize}
 \end{itemize}
 \end{frame}
-
-
 \begin{frame}
 \frametitle{\textbf{MATRIX FACTORIZATION COLLABORATIVE FILTERING}}
 \framesubtitle{\textbf{How to train the model?}}
@@ -198,6 +184,4 @@ $$ \mbox{cosine\_similarity}(u_1, u_2) = \cos(u_1,u_2) = \dfrac{u_1^Tu_2}{\left\
 	$$x_m = x_m - \eta\left(-\dfrac{1}{s}(\hat{y}^m-x_m\hat{W}_m)\hat{W}^T_m + \lambda x_m\right) $$
 \end{itemize}
 \end{frame}
-
-
 \end{document}
